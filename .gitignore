@@ -1,0 +1,29 @@
+# Monorepo root — subfolder gitignores (backend/, frontend/) cover most;
+# this file is a safety net.
+
+# Dependencies (both apps)
+**/node_modules/
+backend/vendor/
+
+# Env & secrets (never commit)
+backend/.env
+backend/.env.source-backend
+backend/.env.backup
+backend/.env.production
+frontend/.env
+frontend/.env*.local
+
+# Build output
+frontend/dist/
+frontend/dist-ssr/
+backend/public/build/
+backend/public/hot
+
+# Vite / tooling cache
+.vite/
+**/.vite/
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db

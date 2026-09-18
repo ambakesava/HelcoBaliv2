@@ -1,0 +1,85 @@
+# Progress Tasks
+
+- [x] Setup proyek Laravel 11
+- [x] Install package Composer:
+  - [x] Spatie Permission
+  - [x] Maatwebsite Excel
+  - [x] Barryvdh DomPDF
+  - [x] Intervention Image
+  - [x] Laravel Telescope
+- [x] Konfigurasi npm dan Bootstrap 5.3
+- [x] Konfigurasi dan migrasi database default
+- [x] Implementasi autentikasi:
+  - [x] Login & Logout
+  - [x] Forgot Password & Reset Password
+- [x] Buat middleware proteksi route berdasarkan permission per modul dan outlet
+- [x] Buat Database Seeders:
+  - [x] RolePermissionSeeder (4 role: Super Admin, Admin Outlet, Kasir, Gudang, 60+ permission)
+  - [x] AdminUserSeeder
+  - [x] OutletSeeder
+  - [x] MasterDataSeeder
+  - [x] MemberSeeder
+  - [x] DiscountSeeder
+  - [x] VoucherSeeder
+  - [x] StockSeeder
+  - [x] ShiftSeeder
+  - [x] TransactionSeeder
+- [x] CRUD Master Data:
+  - [x] Kategori
+  - [x] Satuan
+  - [x] Supplier
+  - [x] Customer (Member)
+  - [x] Perusahaan (Settings)
+  - [x] Outlet
+- [x] CRUD Produk:
+  - [x] Upload foto
+  - [x] Import Excel
+  - [x] Export Excel
+  - [x] Pengaturan harga beda per outlet
+- [x] Install & Konfigurasi Livewire
+- [x] Modul POS (Point of Sale):
+  - [x] Antarmuka Livewire/Alpine (Keranjang, Kalkulasi)
+  - [x] Proses Pembayaran & Kembalian
+  - [x] Cetak Struk Thermal
+- [x] Manajemen Stok:
+  - [x] Transfer (Stok Masuk/Keluar)
+  - [x] Stock Opname (Penyesuaian Fisik)
+- [x] Pembelian (Purchasing):
+  - [x] Purchase Order (PO)
+  - [x] Goods Receipt (GR) & Update Stok otomatis
+- [x] Master & Promo:
+  - [x] CRUD Diskon
+  - [x] CRUD Voucher
+  - [x] CRUD Member (tier/poin)
+- [x] Shift & Kasir:
+  - [x] Implementasi Shift Kasir (buka, tutup, kas manual, hitung selisih)
+- [x] Modul Hutang Piutang (Supplier/Customer):
+  - [x] Pencatatan Hutang & Piutang
+  - [x] Pembayaran / Cicilan
+- [x] Dashboard Admin:
+  - [x] 8 Stat Cards
+  - [x] Grafik Penjualan
+  - [x] Widget Shift Aktif
+- [x] Laporan Komprehensif:
+  - [x] 13 Jenis Laporan
+  - [x] Export Excel & PDF
+- [x] Tambahkan Global Scope / trait filter berdasarkan outlet_id user
+  - [x] Buat trait FilterByOutlet
+  - [x] Terapkan pada model terkait (Transaction, PurchaseOrder, dll.)
+  - [x] Sesuaikan query dashboard dan laporan
+- [x] Task 5 & 6 (Fitur Lanjutan):
+  - [x] Split Payment pada POS
+  - [x] Integrasi E-Wallet / QRIS pada POS
+  - [x] Hold / Recall Transaksi
+  - [x] Perhitungan Pajak (Tax) 11%
+  - [x] Stock Opname (Penyesuaian Fisik Terpisah)
+  - [x] Transfer Stok antar outlet
+  - [x] Goods Receipt (GR) Parsial
+- [x] Arsitektur & Dokumentasi:
+  - [x] Implementasi Arsitektur Service-Repository (POSService, dll)
+  - [x] Buat script setup.sh otomatis
+  - [x] Tulis README.md lengkap
+- [x] Task 7 (Activity Logs & UI Enhancements):
+  - [x] Pencatatan activity_logs di setiap aksi penting (CRUD)
+  - [x] Implementasi SweetAlert2 pada alert
+  - [x] Implementasi DataTables pada tabel CRUD
