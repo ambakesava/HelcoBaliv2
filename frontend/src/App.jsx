@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import { locales } from './locales';
-import { CartProvider } from './context/CartContext';
 
 import Navbar from './components/Navbar';
 import MobileMenu from './components/MobileMenu';
 import Footer from './components/Footer';
-import ProductDetail from './pages/ProductDetail';
 import ScrollToTop from './components/ScrollToTop';
-import Cart from './pages/Cart';
 import Explore from './pages/Explore';
 import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 
 function AppInner() {
+  const location = useLocation();
   const [lang, setLang] = useState('en');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = locales[lang];
@@ -21,6 +20,8 @@ function AppInner() {
   const toggleLang = () => setLang((prev) => (prev === 'en' ? 'id' : 'en'));
   const openMobileMenu = () => setIsMobileMenuOpen(true);
   const closeMenu = () => setIsMobileMenuOpen(false);
+
+  if (location.pathname === '/dashboard') return <Dashboard />;
 
   return (
     <div className="min-h-screen bg-[#050505] text-stone-300 font-sans selection:bg-amber-500 selection:text-white overflow-x-hidden">
@@ -45,8 +46,8 @@ function AppInner() {
       <Routes>
         <Route path="/" element={<Home t={t} />} />
         <Route path="/explore" element={<Explore t={t} lang={lang} />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<Navigate to="/explore" replace />} />
+        <Route path="/cart" element={<Navigate to="/explore" replace />} />
       </Routes>
 
       <Footer t={t} />
@@ -57,10 +58,8 @@ function AppInner() {
 export default function App() {
   return (
     <BrowserRouter>
-      <CartProvider>
-        <ScrollToTop />
-        <AppInner />
-      </CartProvider>
+      <ScrollToTop />
+      <AppInner />
     </BrowserRouter>
   );
 }

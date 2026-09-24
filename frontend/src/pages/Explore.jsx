@@ -213,21 +213,6 @@ export default function Explore({ t, lang }) {
 
                 {/* Action Buttons */}
                 <div className="flex gap-4 mt-4">
-                  <Link to={`/product/${product.db_id}`}>
-                    <MotionDiv
-                      whileHover={{
-                        scale: 1.05,
-                        backgroundColor: '#d4af37',
-                        color: '#000',
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center gap-2 border border-amber-500/50 text-amber-500 px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] transition-colors cursor-pointer"
-                    >
-                      <Coffee size={14} />
-                      <span>View Product</span>
-                    </MotionDiv>
-                  </Link>
-
                   <NavHashLink to="/#outlets" className="inline-block">
                     <MotionDiv
                       whileHover={{

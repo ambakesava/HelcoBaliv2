@@ -1,12 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function ProductCard({ product }) {
-  const navigate = useNavigate();
-
   return (
-    <div 
-      className="group relative flex flex-col cursor-pointer font-sans"
-      onClick={() => navigate(`/product/${product.id ?? product._id ?? 1}`)}
+    <Link
+      to="/explore"
+      aria-label={`Explore koleksi HelcoBali: ${product.title}`}
+      className="group relative flex flex-col font-sans focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-600"
     >
       <div className="relative w-full aspect-[4/5] bg-white overflow-hidden rounded-none flex items-center justify-center">
         <img
@@ -15,25 +14,10 @@ export default function ProductCard({ product }) {
           className="object-contain object-center w-full h-full p-6 group-hover:scale-105 transition-transform duration-700 ease-out"
         />
         
-        {/* 2. Badges */}
-        {product.badgeType === 'new' && (
-          <span className="absolute top-3 right-3 bg-slate-600 text-white text-[10px] uppercase font-bold px-2 py-1 tracking-wider z-10">
-            New
+        <div className="absolute bottom-0 left-0 w-full translate-y-0 md:translate-y-full md:group-hover:translate-y-0 md:group-focus-visible:translate-y-0 transition-transform duration-300 ease-in-out z-20">
+          <span className="block w-full bg-[#111111] text-white text-xs font-bold uppercase tracking-widest py-4 text-center">
+            Explore The Collection
           </span>
-        )}
-        {product.badgeType === 'bestseller' && (
-          <span className="absolute top-3 right-3 bg-white text-slate-900 text-[10px] uppercase font-bold px-2 py-1 tracking-wider shadow-sm z-10">
-            Best Seller
-          </span>
-        )}
-
-        <div className="absolute bottom-0 left-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-20">
-          <button
-            type="button"
-            className="w-full bg-[#111111] text-white text-xs font-bold uppercase tracking-widest py-4 hover:bg-black transition-colors border-none cursor-pointer"
-          >
-            View Product Detail
-          </button>
         </div>
       </div>
 
@@ -55,6 +39,6 @@ export default function ProductCard({ product }) {
           {product.roast}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

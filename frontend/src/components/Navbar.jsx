@@ -25,18 +25,15 @@
  * @param {function} closeMenu     — closes the mobile menu (used on logo click)
  */
 import { motion } from 'framer-motion';
-import { Globe, Menu, ShoppingCart } from 'lucide-react';
+import { Globe, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import NavHashLink from './NavHashLink';
-import { useCart } from '../context/CartContext';
 
 const MotionDiv = motion.div;
 const linkClass =
   'hover:text-amber-500 hover:-translate-y-0.5 transition-all duration-300';
 
 export default function Navbar({ t, toggleLang, openMobileMenu, closeMenu }) {
-  const { totalCount } = useCart();
-
   return (
     <nav className="fixed w-full z-50 py-4 md:py-6 px-6 md:px-8 flex justify-between items-center bg-black/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
       {/* Brand */}
@@ -67,15 +64,6 @@ export default function Navbar({ t, toggleLang, openMobileMenu, closeMenu }) {
           {t.nav.contact}
         </NavHashLink>
 
-        <Link to="/cart" className={`${linkClass} ml-2 relative`} aria-label="Shopping Bag">
-          <ShoppingCart size={20} />
-          {totalCount > 0 && (
-            <span className="absolute -top-1.5 -right-2 bg-amber-500 text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-[0_0_8px_rgba(212,175,55,0.6)] animate-in fade-in zoom-in duration-200">
-              {totalCount}
-            </span>
-          )}
-        </Link>
-
         <button
           type="button"
           onClick={toggleLang}
@@ -88,14 +76,6 @@ export default function Navbar({ t, toggleLang, openMobileMenu, closeMenu }) {
 
       {/* Mobile action cluster */}
       <div className="flex md:hidden items-center gap-4">
-        <Link to="/cart" onClick={closeMenu} className="text-amber-500 p-2 relative z-50" aria-label="Shopping Bag">
-          <ShoppingCart size={22} />
-          {totalCount > 0 && (
-            <span className="absolute top-1 right-1 bg-amber-500 text-black text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-              {totalCount}
-            </span>
-          )}
-        </Link>
         <button
           type="button"
           className="text-amber-500 p-2 relative z-50"

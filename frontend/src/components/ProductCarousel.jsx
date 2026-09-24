@@ -1,8 +1,7 @@
-import { useRef, useState, useEffect } from 'react';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
-
-const SCROLL_DISTANCE = 300;
 
 /**
  * [TAG: COMPONENT_PRODUCT_CAROUSEL]
@@ -10,27 +9,28 @@ const SCROLL_DISTANCE = 300;
  * Mengambil datanya secara langsung dari API backend.
  */
 export default function ProductCarousel() {
-  const scrollRef = useRef(null);
   const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [status, setStatus] = useState('loading');
 
   /**
    * [TAG: FETCH_FEATURED_PRODUCTS]
    * Mengambil data produk dari backend Laravel saat komponen dimuat pertama kali.
    */
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => setFeaturedProducts(data))
-      .catch(console.error);
+    const controller = new AbortController();
+    fetch('/api/products', { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error('Produk tidak tersedia');
+        return response.json();
+      })
+      .then((products) => {
+        if (!Array.isArray(products)) throw new Error('Format produk tidak dikenal');
+        setFeaturedProducts(products);
+        setStatus('ready');
+      })
+      .catch((error) => { if (error.name !== 'AbortError') setStatus('error'); });
+    return () => controller.abort();
   }, []);
-
-  /**
-   * [TAG: HANDLER_SCROLL_CAROUSEL]
-   * Membantu geser scroll kiri/kanan pada UI Carousel saat tombol ditekan.
-   */
-  const scrollProducts = (distance) => {
-    scrollRef.current?.scrollBy({ left: distance, behavior: 'smooth' });
-  };
 
   return (
     <section className="w-full bg-white py-16 px-4 md:px-8 lg:px-12 relative overflow-hidden font-sans">
@@ -41,31 +41,13 @@ export default function ProductCarousel() {
           <h2 className="text-2xl md:text-3xl font-black text-[#111111] uppercase tracking-tighter">
             Featured Roasts
           </h2>
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => scrollProducts(-SCROLL_DISTANCE)}
-              className="p-2 border border-gray-200 rounded-full hover:bg-gray-100 transition-colors hidden md:block"
-              aria-label="Scroll products left"
-            >
-              <ArrowLeft size={16} className="text-gray-600" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollProducts(SCROLL_DISTANCE)}
-              className="p-2 border border-gray-200 rounded-full hover:bg-gray-100 transition-colors hidden md:block"
-              aria-label="Scroll products right"
-            >
-              <ArrowRight size={16} className="text-gray-600" />
-            </button>
-          </div>
+          <Link to="/explore" className="inline-flex min-h-11 items-center gap-2 text-slate-900 font-semibold hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">Explore collection <ArrowRight size={18} aria-hidden="true" /></Link>
         </div>
 
         {/* Carousel / Grid Container */}
-        <div className="relative">
+        {status === 'loading' ? <p role="status" className="py-16 text-slate-700">Loading featured products...</p> : status === 'error' ? <p role="alert" className="py-16 text-slate-700">Featured products are unavailable right now. Browse the collection on Explore.</p> : featuredProducts.length === 0 ? <p role="status" className="py-16 text-slate-700">No featured products available. Browse the collection on Explore.</p> : <div className="relative">
           {/* Scrollable container: 4 cols on desktop, 2 cols on mobile */}
-          <div 
-            ref={scrollRef}
+          <div
             className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 md:gap-6 pb-8"
           >
             {featuredProducts.map((product) => (
@@ -78,21 +60,7 @@ export default function ProductCarousel() {
             ))}
           </div>
           
-          {/* Faded right edge to imply carousel (Desktop only) */}
-          <div className="absolute right-0 top-0 bottom-8 w-24 bg-gradient-to-l from-white to-transparent pointer-events-none hidden md:block z-10"></div>
-          
-          {/* Right Arrow Overlapping */}
-          <div className="absolute right-0 top-[40%] -translate-y-1/2 translate-x-1/4 hidden md:flex items-center justify-center z-20">
-            <button
-              type="button"
-              onClick={() => scrollProducts(SCROLL_DISTANCE)}
-              className="w-12 h-12 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex items-center justify-center text-slate-900 hover:bg-slate-50 hover:scale-105 transition-all"
-              aria-label="Scroll products right"
-            >
-              <ArrowRight size={20} />
-            </button>
-          </div>
-        </div>
+        </div>}
         
       </div>
 
