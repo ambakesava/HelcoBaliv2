@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api, setSession } from './dashboardApi';
 
-const inputClass = 'w-full bg-[#111] border border-white/10 rounded-none px-4 py-3.5 text-sm text-stone-200 placeholder:text-stone-600 focus:outline-none focus:border-amber-500/60 transition-colors';
+const inputClass = 'w-full bg-[#111] border border-white/10 rounded-none px-4 py-3.5 text-sm text-stone-200 placeholder:text-stone-500 focus:outline-none focus:border-amber-500/60 transition-colors';
 
 export default function Auth({ mode, t }) {
   const navigate = useNavigate();
@@ -63,11 +63,11 @@ export default function Auth({ mode, t }) {
           )}
           <label className="block">
             <span className="block text-xs uppercase tracking-widest text-stone-500 mb-2">{t.auth.email}</span>
-            <input className={inputClass} type="email" required maxLength={120} value={form.email} onChange={set('email')} autoComplete="email" />
+            <input className={inputClass} type="email" required maxLength={120} placeholder={isLogin ? t.auth.emailPh : undefined} value={form.email} onChange={set('email')} autoComplete="email" />
           </label>
           <label className="block">
             <span className="block text-xs uppercase tracking-widest text-stone-500 mb-2">{t.auth.password}</span>
-            <input className={inputClass} type="password" required minLength={6} maxLength={100} value={form.password} onChange={set('password')} autoComplete={isLogin ? 'current-password' : 'new-password'} />
+            <input className={inputClass} type="password" required minLength={6} maxLength={100} placeholder={isLogin ? t.auth.passwordPh : undefined} value={form.password} onChange={set('password')} autoComplete={isLogin ? 'current-password' : 'new-password'} />
           </label>
           {!isLogin && (
             <>
@@ -83,8 +83,11 @@ export default function Auth({ mode, t }) {
           )}
           {error && <p role="alert" className="text-sm text-red-400 border border-red-500/30 bg-red-500/5 px-4 py-3">{error}</p>}
           {ok && <p role="status" className="text-sm text-amber-400 border border-amber-500/30 bg-amber-500/5 px-4 py-3">{ok}</p>}
+          <button type="submit" disabled={busy} className="w-full bg-amber-500 text-[#212529] font-semibold text-sm px-10 py-3 hover:bg-amber-600 transition-colors disabled:opacity-60">
+            {isLogin ? t.auth.loginBtn : t.auth.signupBtn}
+          </button>
           {isLogin && (
-            <div className="border border-white/10 bg-white/[0.02] px-4 py-3 flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <p className="text-xs text-stone-500">{t.auth.adminDemo}</p>
               <button
                 type="button"
@@ -95,9 +98,6 @@ export default function Auth({ mode, t }) {
               </button>
             </div>
           )}
-          <button type="submit" disabled={busy} className="w-full bg-white text-black font-semibold tracking-[0.2em] uppercase text-sm px-10 py-4 hover:bg-amber-500 transition-colors disabled:opacity-60">
-            {isLogin ? t.auth.loginBtn : t.auth.signupBtn}
-          </button>
         </form>
         <div className="mt-8 flex flex-col gap-3 text-sm">
           <Link to={isLogin ? '/signup' : '/login'} className="text-amber-500 hover:text-amber-400 uppercase tracking-[0.15em] text-xs font-semibold">
