@@ -100,7 +100,7 @@ export function statusesFor(row, rows, settings, now = new Date()) {
 }
 
 export const POS_TAX_RATE = 0.11;
-export const POS_PAY_METHODS = ['Tunai', 'QRIS', 'Transfer'];
+export const POS_PAY_METHODS = ['QRIS', 'Transfer'];
 
 export const POS_SAMPLE_PRODUCTS = [
   { id: 'pos-1', name: 'LA KINTAMANI', price: 120000, stock: 36, image: '/product-kintamani.jpg', notes: 'Citrus, Floral, Bright Acidity', roast: 'Light Roast', origin: 'Kintamani' },

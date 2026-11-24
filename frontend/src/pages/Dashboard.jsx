@@ -114,7 +114,7 @@ export default function Dashboard() {
   const [cart, setCart] = useState([]);
   const [customer, setCustomer] = useState('');
   const [discountRp, setDiscountRp] = useState('');
-  const [payMethod, setPayMethod] = useState('Tunai');
+  const [payMethod, setPayMethod] = useState('QRIS');
   const [received, setReceived] = useState('');
   const [lastReceipt, setLastReceipt] = useState(null);
   const [shiftQty, setShiftQty] = useState({});
@@ -353,7 +353,7 @@ export default function Dashboard() {
     setCart((previous) => nextQty === 0 ? previous.filter((line) => line.productId !== productId) : previous.map((line) => line.productId === productId ? { ...line, qty: nextQty } : line));
   }
   function resetPosTransaction() {
-    setCart([]); setCustomer(''); setDiscountRp(''); setReceived(''); setPayMethod('Tunai');
+    setCart([]); setCustomer(''); setDiscountRp(''); setReceived(''); setPayMethod('QRIS');
     setNotice(t.newReady);
   }
   async function checkoutPos() {
@@ -646,9 +646,6 @@ export default function Dashboard() {
           <div className="hb-grand"><dt>{t.total}</dt><dd>{money(posTotals.total)}</dd></div>
         </dl>
         <fieldset className="hb-pay"><legend>{t.payMethod}</legend><div className="hb-pay-options">{POS_PAY_METHODS.map((method) => <label key={method} className={payMethod === method ? 'hb-pay-active' : ''}><input className="form-check-input" type="radio" name="hb-pay" value={method} checked={payMethod === method} onChange={() => setPayMethod(method)} /> {method}</label>)}</div></fieldset>
-        <label className="hb-cart-label" htmlFor="hb-pos-received">{t.received}</label>
-        <input id="hb-pos-received" className="form-control mb-2" type="number" min="0" step="500" placeholder="0" disabled={payMethod !== 'Tunai'} value={payMethod === 'Tunai' ? received : posTotals.total} onChange={(event) => setReceived(event.target.value)} />
-        <div className="hb-change"><span>{t.change}</span><strong>{money(Math.max(0, posChange))}</strong></div>
         <div className="hb-cart-actions"><button className="btn hb-btn-gold" type="button" disabled={!cartDetailed.length} onClick={checkoutPos}>{t.placeOrder}</button><button className="btn btn-outline-dark" type="button" disabled={!lastReceipt} onClick={() => lastReceipt && openModal('struk', { receipt: lastReceipt })}>{t.printReceipt}</button></div>
       </aside>
     </div></section>;
@@ -700,8 +697,6 @@ export default function Dashboard() {
         <div className="hb-receipt-line"><span>{t.discount.replace(' (Rp)', '')}</span><span>{money(receipt.discount)}</span></div>
         <div className="hb-receipt-line"><span>{t.tax}</span><span>{money(receipt.tax)}</span></div>
         <div className="hb-receipt-line hb-grand"><span>{t.total}</span><span>{money(receipt.total)}</span></div>
-        <div className="hb-receipt-line"><span>{t.received.replace(' (Rp)', '')}</span><span>{money(receipt.received)}</span></div>
-        <div className="hb-receipt-line"><span>{t.change}</span><span>{money(receipt.method === 'Tunai' ? Math.max(0, receipt.received - receipt.total) : 0)}</span></div>
         <div className="d-flex gap-2 mt-3"><button className="btn hb-btn-gold flex-fill" type="button" onClick={() => window.print()}>{t.printReceipt}</button><button className="btn btn-outline-dark flex-fill" type="button" onClick={() => setModal(null)}>{t.close}</button></div>
       </div>;
     }
@@ -803,6 +798,6 @@ export default function Dashboard() {
       </div>
     </div>
     {notice && !modal && <div className="hb-toast" role="status"><span>{notice}</span><button className="hb-icon-button" type="button" aria-label="Tutup pesan" onClick={() => setNotice('')}><i className="bi bi-x-lg" aria-hidden="true" /></button></div>}
-    {modal && <><div className="hb-modal-backdrop" role="presentation" /><div className="hb-modal-layer" onClick={(event) => { if (event.target === event.currentTarget) setModal(null); }}><div ref={modalRef} className="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="dialog" aria-modal="true" aria-labelledby="hb-modal-heading" tabIndex={-1}><div className="modal-content"><div className="modal-header"><h2 className="modal-title h5 mb-0" id="hb-modal-heading">{modalTitle[modal.type]}</h2><button className="hb-icon-button" type="button" aria-label="Tutup dialog" onClick={() => setModal(null)}><i className="bi bi-x-lg" aria-hidden="true" /></button></div>{notice && <div className="hb-modal-alert" role="alert">{notice}</div>}{modalBody()}<div className="modal-footer"><button className="btn btn-outline-dark" type="button" onClick={() => setModal(null)}>{t.close}</button>{!['notifications', 'detail', 'struk'].includes(modal.type) && <button className="btn hb-btn-gold" type="submit" form="hb-modal-form">{modalSubmitLabel[modal.type] || t.save}</button>}</div></div></div></div></>}
+    {modal && <><div className="hb-modal-backdrop" role="presentation" /><div className="hb-modal-layer" onClick={(event) => { if (event.target === event.currentTarget) setModal(null); }}><div ref={modalRef} className="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="dialog" aria-modal="true" aria-labelledby="hb-modal-heading" tabIndex={-1}><div className="modal-content"><div className="modal-header"><h2 className="modal-title h5 mb-0" id="hb-modal-heading">{modalTitle[modal.type]}</h2><button className="hb-icon-button" type="button" aria-label="Tutup dialog" onClick={() => setModal(null)}><i className="bi bi-x-lg" aria-hidden="true" /></button></div>{notice && <div className="hb-modal-alert" role="alert">{notice}</div>}{modalBody()}{modal.type !== 'struk' && <div className="modal-footer"><button className="btn btn-outline-dark" type="button" onClick={() => setModal(null)}>{t.close}</button>{!['notifications', 'detail'].includes(modal.type) && <button className="btn hb-btn-gold" type="submit" form="hb-modal-form">{modalSubmitLabel[modal.type] || t.save}</button>}</div>}</div></div></div></>}
   </div>;
 }
