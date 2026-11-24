@@ -2,8 +2,8 @@
  * locales.js — Internationalisation (i18n) strings.
  *
  * Supported languages:
- *  - `en` — English (default)
- *  - `id` — Bahasa Indonesia
+ *  - `id` — Bahasa Indonesia (default)
+ *  - `en` — English
  *
  * Structure:
  *  nav          → Navbar link labels
@@ -31,8 +31,8 @@ export const locales = {
       langToggle: "ID"
     },
     auth: {
-      loginTitle: "Gerai Sign In",
-      loginDesc: "Sign in with your registered email and password to open your gerai dashboard.",
+      loginTitle: "Sign in to dashboard",
+      loginDesc: "Manage consignment stock, FEFO restocks, and gerai reports.",
       signupTitle: "Register Your Gerai",
       signupDesc: "Join as a HelcoBali partner. Your gerai will be reviewed by our admin before activation.",
       name: "Full name",
@@ -40,14 +40,16 @@ export const locales = {
       password: "Password",
       storeName: "Gerai name",
       storeLocation: "Gerai location",
-      loginBtn: "Sign In",
+      loginBtn: "Enter the dashboard",
       signupBtn: "Register Gerai",
       toSignup: "No account yet? Register your gerai",
       toLogin: "Already registered? Sign in",
       backHome: "Back to Home",
       successSignup: "Registration received. Please sign in and wait for admin approval.",
-      adminDemo: "Admin demo — email: admin@helcobali.id, password: admin123",
+      adminDemo: "Demo - Sample data (not a production account)",
       autofillAdmin: "Fill admin credentials",
+      emailPh: "admin@helcobali.demo",
+      passwordPh: "••••••••",
       storeNamePh: "e.g. AnggaPuspa.dev",
       storeLocationPh: "e.g. Denpasar"
     },
@@ -150,23 +152,25 @@ export const locales = {
       langToggle: "EN"
     },
     auth: {
-      loginTitle: "Masuk Gerai",
-      loginDesc: "Masuk dengan email dan kata sandi yang terdaftar untuk membuka dashboard gerai Anda.",
+      loginTitle: "Masuk dashboard",
+      loginDesc: "Kelola stok konsinyasi, restok FEFO, dan laporan gerai.",
       signupTitle: "Daftarkan Gerai Anda",
       signupDesc: "Bergabung sebagai mitra HelcoBali. Gerai Anda akan ditinjau admin sebelum diaktifkan.",
       name: "Nama lengkap",
       email: "Email",
-      password: "Kata sandi",
+      password: "Password",
       storeName: "Nama gerai",
       storeLocation: "Lokasi gerai",
-      loginBtn: "Masuk",
+      loginBtn: "Masuk ke dashboard",
       signupBtn: "Daftarkan Gerai",
       toSignup: "Belum punya akun? Daftarkan gerai Anda",
       toLogin: "Sudah terdaftar? Masuk",
       backHome: "Kembali ke Beranda",
       successSignup: "Pendaftaran diterima. Silakan masuk dan tunggu persetujuan admin.",
-      adminDemo: "Demo admin — email: admin@helcobali.id, password: admin123",
+      adminDemo: "Demo - Data contoh (bukan akun produksi)",
       autofillAdmin: "Isi kredensial admin",
+      emailPh: "admin@helcobali.demo",
+      passwordPh: "••••••••",
       storeNamePh: "cth. AnggaPuspa.dev",
       storeLocationPh: "cth. Denpasar"
     },

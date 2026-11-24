@@ -14,7 +14,7 @@ import Dashboard from './pages/Dashboard';
 
 function AppInner() {
   const location = useLocation();
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState('id');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = locales[lang];
 
